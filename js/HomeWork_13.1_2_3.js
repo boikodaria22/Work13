@@ -50,7 +50,7 @@ function responseServer() {
           let btnAdd = document.createElement('button');
           divForAddItem.appendChild(btnAdd);
           btnAdd.textContent = 'Add'
-          btnAdd.className = 'col-2'
+          btnAdd.className = 'col-2 btn-add'
           btn.onclick = () => {
             if (divForAddItem.style.display == 'block') divForAddItem.style.display = 'none';
             else divForAddItem.style.display = 'block';
@@ -69,6 +69,7 @@ function responseServer() {
               let btnRemove = document.createElement('button');
               li.appendChild(btnRemove)
               btnRemove.textContent = 'Remove'
+              btnRemove.className = 'btn-remove'
 //***********       Задача 13.3 *****************************************/
               btnRemove.onclick = () => {
                 const url = `https://jsonplaceholder.typicode.com/todos/${toDoLists[i][j].id}`
@@ -83,6 +84,7 @@ function responseServer() {
               let btnEdit = document.createElement('button');
               li.appendChild(btnEdit)
               btnEdit.textContent = 'Edit'
+              btnEdit.className = 'btn-edit'
 //***********       Задача 13.2 *****************************************/
               btnEdit.onclick = () => {
                 if (inp.disabled == true) {
