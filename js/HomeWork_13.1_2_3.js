@@ -76,7 +76,7 @@ function responseServer() {
                 fetch(url, {
                   method: 'DELETE'
                 }).then((response) => response.json()).then(() => {
-                  toDoLists[i].splice([toDoLists[i][j]], 1)
+                  toDoLists[i].splice((toDoLists[i].indexOf(toDoLists[i][j])), 1)
                   list.innerHTML = '',
                   createInput()
                 })
