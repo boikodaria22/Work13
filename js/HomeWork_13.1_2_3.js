@@ -70,7 +70,7 @@ function responseServer() {
               li.appendChild(btnRemove)
               btnRemove.textContent = 'Remove'
               btnRemove.className = 'btn-remove'
-//***********       Задача 13.3 *****************************************/
+                //***********       Задача 13.3 *****************************************/
               btnRemove.onclick = () => {
                 const url = `https://jsonplaceholder.typicode.com/todos/${toDoLists[i][j].id}`
                 fetch(url, {
@@ -85,7 +85,7 @@ function responseServer() {
               li.appendChild(btnEdit)
               btnEdit.textContent = 'Edit'
               btnEdit.className = 'btn-edit'
-//***********       Задача 13.2 *****************************************/
+                //***********       Задача 13.2 *****************************************/
               btnEdit.onclick = () => {
                 if (inp.disabled == true) {
                   inp.disabled = false
@@ -95,42 +95,63 @@ function responseServer() {
                   const url = `https://jsonplaceholder.typicode.com/todos/${toDoLists[i][j].id}`
                   let res
                   fetch(url, {
-                    method: 'PATCH',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                      title: inp.value
-                    })
-                  }).then((response) => response.json())
+                      method: 'PATCH',
+                      headers: {
+                        'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify({
+                        title: inp.value
+                      })
+                    }).then((response) => response.json())
                     .then((json) => res = json)
                 }
               }
             }
           }
           createInput()
-
-//***********       Задача 13.1 *****************************************
+          //***********       Задача 13.1 *****************************************
           btnAdd.onclick = () => {
-            let newObjInput = {
-              completed: false,
-              id: toDoLists[i][toDoLists[i].length - 1].id + 1,
-              title: `${textForAddItem.value}`,
-              userId: toDoLists[i][0].userId,
+            if (!toDoLists[i].length) {
+              let newObjInputWithoutListToDoLength = {
+                completed: false,
+                id: toDoLists[i].id = 0,
+                title: `${textForAddItem.value}`,
+                userId: toDoLists[i].userId,
+              }
+              toDoLists[i].unshift(newObjInputWithoutListToDoLength)
+              const url = 'https://jsonplaceholder.typicode.com/todos'
+              fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(toDoLists[i][0]),
+                }).then((response) => response.json())
+                .then(() => {
+                  list.innerHTML = '',
+                  createInput()
+                })
+            } else {
+              let newObjInput = {
+                completed: false,
+                id: toDoLists[i][toDoLists[i].length - 1].id + 1,
+                title: `${textForAddItem.value}`,
+                userId: toDoLists[i][0].userId,
+              }
+              toDoLists[i].unshift(newObjInput)
+              const url = 'https://jsonplaceholder.typicode.com/todos'
+              fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(toDoLists[i][0]),
+                }).then((response) => response.json())
+                .then(() => {
+                  list.innerHTML = '',
+                  createInput()
+                })
             }
-            toDoLists[i].unshift(newObjInput)
-            const url = 'https://jsonplaceholder.typicode.com/todos'
-            fetch(url, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(toDoLists[i][0]),
-            }).then((response) => response.json())
-              .then(() => {
-                list.innerHTML = '',
-                createInput()
-            })
           }
         }
       }
